@@ -1,6 +1,8 @@
 package application;
-	
+
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -22,9 +24,27 @@ import javafx.scene.layout.VBox;
  *
  */
 public class Main extends Application {
+
+	/**
+	 * TODO commenter le role (attribut ou rôle associatif)
+	 */
+	public static CheckBox[] tabSurvieTest;
+	
+	/**
+	 * TODO commenter le role (attribut ou rôle associatif)
+	 */
+	public static CheckBox[] tabNaissanceTest;
+
+	/**
+	 * TODO commenter le role (attribut ou rôle associatif)
+	 */
+	public static int tailleGrille;
+
+
 	@Override
 	public void start(Stage primaryStage) {
-		
+
+
 		/* box */
 		VBox root = new VBox(20); 
 		VBox right = new VBox(20); 
@@ -33,41 +53,56 @@ public class Main extends Application {
 		HBox bar = new HBox(20); 
 		HBox firstCheck = new HBox(20);
 		HBox secondCheck = new HBox(20);
-		
-		
+
+
+
+
 		/* composants autres que box */
 		Label title = new Label ("JEU DE LA VIE");
-		Label rules = new Label ("R�gles");
+		Label rules = new Label ("Règles");
 		Label size = new Label ("Taille de la grille");
-		Label leftBar = new Label ("10x10");
-		Label rightBar = new Label ("200x200");
-		Label rulesDie = new Label ("Une cellule meurt si elle est entour�e de : ");
-		Label rulesLive = new Label ("Une cellule reste en vie si elle est entour�e de : ");
+		Label rulesDie = new Label ("Une cellule naît si elle est   entourée de : "); // espace pour IHM
+		Label rulesLive = new Label ("Une cellule reste en vie si elle est entourée de : ");
 		Separator vertical = new Separator(); // barre vertical
 		Button play = new Button("JOUER");
 		Button more = new Button("Plus d'informations");
-		Slider sizeNumber = new Slider(); // barre de vitesse
-		
+		Label texteNumber = new Label();
+		Slider sizeNumber = new Slider();
+		sizeNumber.setMin(10);
+		sizeNumber.setMax(100);
+
+		sizeNumber.setShowTickLabels(true);
+		sizeNumber.setShowTickMarks(true);
+		sizeNumber.valueProperty().addListener(new ChangeListener<Number>() {
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				tailleGrille = (int) sizeNumber.getValue();
+				texteNumber.setText(Integer.toString(tailleGrille) + "x" + Integer.toString(tailleGrille));
+				
+			}
+			
+		});
+		sizeNumber.setValue(20);
+
 		/* check box */
-		CheckBox oneDie = new CheckBox("1");
-		CheckBox twoDie = new CheckBox("2");
-		CheckBox threeDie = new CheckBox("3");
-		CheckBox fourDie = new CheckBox("4");
-		CheckBox fiveDie = new CheckBox("5");
-		CheckBox sixDie = new CheckBox("6");
-		CheckBox sevenDie = new CheckBox("7");
-		CheckBox eightDie = new CheckBox("8");
-		CheckBox nineDie = new CheckBox("9");
-		CheckBox oneLive = new CheckBox("1"); 
-		CheckBox twoLive = new CheckBox("2");
-		CheckBox threeLive = new CheckBox("3");
-		CheckBox fourLive = new CheckBox("4");
-		CheckBox fiveLive = new CheckBox("5");
-		CheckBox sixLive = new CheckBox("6");
-		CheckBox sevenLive = new CheckBox("7");
-		CheckBox eightLive = new CheckBox("8");
-		CheckBox nineLive = new CheckBox("9");
-		
+
+		CheckBox[] tabSurvie = new CheckBox[9];
+		for (int i = 0; i < 9; i++) {
+			tabSurvie[i] = new CheckBox(String.valueOf(i));
+			firstCheck.getChildren().add(tabSurvie[i]);
+		}
+		tabSurvie[2].setSelected(true);
+		tabSurvie[3].setSelected(true);
+
+		tabSurvieTest = tabSurvie;
+
+		CheckBox[] tabNaissance = new CheckBox[9];
+		for (int i = 0; i < 9; i++) {
+			tabNaissance[i] = new CheckBox(String.valueOf(i));
+			secondCheck.getChildren().add(tabNaissance[i]);
+		}
+		tabNaissance[3].setSelected(true);
+		tabNaissanceTest = tabNaissance;
+
 		/* assigniation des CSS */
 		title.getStyleClass().add("title");
 		right.getStyleClass().add("right");
@@ -77,47 +112,54 @@ public class Main extends Application {
 		size.getStyleClass().add("title-rules");
 		rulesDie.getStyleClass().add("title-rules");
 		rulesLive.getStyleClass().add("title-rules");
+		sizeNumber.getStyleClass().add("bar");
+		firstCheck.getStyleClass().add("check-box");
+		secondCheck.getStyleClass().add("check-box");
+		texteNumber.getStyleClass().add("number");
+             
+		rulesLive.setWrapText(true); //  débloque le retour à la ligne
+		rulesDie.setWrapText(true);
 		
+		/* placement */
+		root.setAlignment(Pos.TOP_CENTER); 
+		play.setTranslateY(250);
+		play.setTranslateX(50);
+		more.setTranslateY(260);
+		more.setTranslateX(90); 
+//		right.setTranslateY(100);
+		right.setTranslateX(110);
+		right.setSpacing(50);
 		
-		root.setAlignment(Pos.TOP_CENTER);
-		//big.setSpacing(200);
-		//play.setLayoutX(0);
-		//play.setLayoutY(0);
-		
-		firstCheck.getChildren().addAll(oneDie,twoDie,threeDie,fourDie,fiveDie,sixDie,sevenDie,eightDie,nineDie);
-		secondCheck.getChildren().addAll(oneLive,twoLive,threeLive,fourLive,fiveLive,sixLive,sevenLive,eightLive,nineLive);
-		bar.getChildren().addAll(leftBar,sizeNumber,rightBar);
+		 
+
+		bar.getChildren().addAll(sizeNumber,texteNumber);
 		right.getChildren().addAll(rules,size,bar,rulesLive,firstCheck,rulesDie,secondCheck);
 		left.getChildren().addAll(play,more);
 		big.getChildren().addAll(left,right);
 		root.getChildren().addAll(title,vertical,big);
-		
-		// TODO action sur slider, checkbox pour le jeu ??
-				
-		/* boutton jouer */
-		play.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
-		@Override
-		public void handle(ActionEvent event) {
-		    // TODO � completer pour passer � la fenetre de jeu
-		}
-		});
-		
+
 		/* boutton plus d'informations */
 		more.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
-		@Override
-		public void handle(ActionEvent event) {
-		    getHostServices().showDocument("https://fr.wikipedia.org/wiki/Jeu_de_la_vie");
-		}
+			@Override
+			public void handle(ActionEvent event) {
+				getHostServices().showDocument("https://fr.wikipedia.org/wiki/Jeu_de_la_vie");
+			}
 		});
-		
+
+		tabSurvie.toString();
 		Scene scene = new Scene(root,900,900);
-		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm()); 
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.show(); 
+
+		play.setOnAction(e -> {
+			FenetreDeJeu.display();
+			primaryStage.close();
+		});
 	}
-	
-	
-	
+
+
+
 	/**
 	 * 
 	 * @param args 
@@ -125,4 +167,13 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
+	/**
+	 * TODO commenter le rôle (SRP) de cette méthode 
+	 * @return taille de la grille
+	 */
+	public static int getTailleGrille() {
+		return tailleGrille;
+	}
+
 }
