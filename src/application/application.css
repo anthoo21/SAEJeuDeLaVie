@@ -88,7 +88,30 @@
 
 .btn-game {
 	-fx-pref-height: 20px;
-	-fx-pref-width: 80px;
+	-fx-pref-width: 100px;
 	-fx-background-color: #323232;
 	-fx-text-fill: white;
+	-fx-background-radius: 0;
+}
+
+.btn-game-str {
+	-fx-pref-height: 20px;
+	-fx-pref-width: 180px;
+	-fx-background-color: #323232;
+	-fx-text-fill: white;
+	-fx-background-radius: 0;
+	-fx-font-size: 13pt;
+}
+
+.title-str {
+	-fx-font-size: 15pt;
+}
+.bar-speed .thumb {
+	-fx-background-color: black;
+	-fx-font-size: 11pt;
+}
+
+.bar-speed .track {
+	-fx-background-color: black;
+	-fx-font-size: 1pt;
 }

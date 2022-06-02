@@ -59,10 +59,10 @@ public class Main extends Application {
 
 		/* composants autres que box */
 		Label title = new Label ("JEU DE LA VIE");
-		Label rules = new Label ("RÃ¨gles");
+		Label rules = new Label ("Règles");
 		Label size = new Label ("Taille de la grille");
-		Label rulesDie = new Label ("Une cellule naÃ®t si elle est   entourÃ©e de : "); // espace pour IHM
-		Label rulesLive = new Label ("Une cellule reste en vie si elle est entourÃ©e de : ");
+		Label rulesDie = new Label ("Une cellule naît si elle est   entourée de : "); // espace pour IHM
+		Label rulesLive = new Label ("Une cellule reste en vie si elle est entourée de : ");
 		Separator vertical = new Separator(); // barre vertical
 		Button play = new Button("JOUER");
 		Button more = new Button("Plus d'informations");
@@ -150,6 +150,7 @@ public class Main extends Application {
 		Scene scene = new Scene(root,900,900);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		primaryStage.setScene(scene);
+		primaryStage.setTitle("Accueil");
 		primaryStage.show(); 
 
 		play.setOnAction(e -> {
