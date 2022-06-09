@@ -2,12 +2,6 @@ package application;
 
 import javafx.scene.control.CheckBox;
 
-/**
- * TODO commenter la classe
- * @author Froment Jean-Francois
- * @author Enjalbert Anthony
- *
- */
 public class Algorithme extends Thread {
 	
 	private boolean partieExecution;
@@ -18,13 +12,6 @@ public class Algorithme extends Thread {
 	
 	static int tailleGrille = Main.getTailleGrille();
 	
-	/**
-	 * TODO commenter l'état initial
-	 * @param infoJeu
-	 * @param plateau
-	 * @param tabSurv
-	 * @param tabNaiss
-	 */
 	public Algorithme(int[][] infoJeu, Case[][] plateau, CheckBox[] tabSurv, CheckBox[] tabNaiss) {
 		partieExecution = true;
 		tabcalc = infoJeu;

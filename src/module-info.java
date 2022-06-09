@@ -1,5 +1,8 @@
-/** */
-module SAEJeuDeLaVie {
+/**
+ * @author fait automatiquement 
+ *
+ */
+module JeuDeLaVie {
 	requires javafx.controls;
 	requires javafx.graphics;
 	

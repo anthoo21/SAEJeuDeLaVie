@@ -1,9 +1,6 @@
-@import	url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300&display=swap')
-	;
-/* police ? */
 .title {
 	-fx-font-size: 46pt;
-	-fx-font-family: 'Chakra Petch', sans-serif;
+	-fx-font-family: 'Georgia';
 }
 
 .play {
@@ -13,6 +10,14 @@
 	-fx-text-fill: white;
 	-fx-pref-height: 80px;
 	-fx-pref-width: 250px;
+	-fx-font-family: 'Georgia'
+}
+
+.play:hover {
+	-fx-background-color: white;
+	-fx-border-radius: 22;
+	-fx-text-fill: black;
+	-fx-border-style: solid;
 }
 
 .more {
@@ -24,17 +29,20 @@
 	-fx-text-fill: black;
 	-fx-border-style: solid;
 	-fx-border-radius: 22;
+	-fx-font-family: 'Georgia'
 }
 
 .rules {
 	-fx-font-size: 32pt;
 	-fx-text-fill: white;
+	-fx-font-family: 'Georgia'
 }
 
 .title-rules {
 	-fx-font-size: 24pt;
 	-fx-text-fill: white;
 	-fx-text-alignment: center;
+	-fx-font-family: 'Georgia'
 }
 
 .right {
@@ -92,6 +100,13 @@
 	-fx-background-color: #323232;
 	-fx-text-fill: white;
 	-fx-background-radius: 0;
+	-fx-font-family: 'Georgia'
+}
+
+.btn-game:hover {
+	-fx-background-color: white;
+	-fx-text-fill: black;
+	-fx-border-style: solid;
 }
 
 .btn-game-str {
@@ -101,11 +116,24 @@
 	-fx-text-fill: white;
 	-fx-background-radius: 0;
 	-fx-font-size: 13pt;
+	-fx-font-family: 'Georgia'
+}
+
+.btn-game-str:hover {
+	-fx-background-color: white;
+	-fx-text-fill: black;
+	-fx-border-style: solid;
 }
 
 .title-str {
 	-fx-font-size: 15pt;
 }
+
+.speed {
+	-fx-font-size: 10pt;
+	-fx-font-family: 'Georgia'
+}
+
 .bar-speed .thumb {
 	-fx-background-color: black;
 	-fx-font-size: 11pt;

@@ -155,25 +155,36 @@ public class FenetreDeJeu extends Main {
 			}
 			execution = false;
 		});
+
 		Button structure = new Button("Structure");
 		structure.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				VBox all = new VBox(10);
-				Scene structureScene = new Scene(all, 230, 420);
-				structureScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-				
+				Scene structureScene = new Scene(all, 230, 600);
 
 				Stage newWindow = new Stage();
+				structureScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
 				int milieu = tailleGrille/2;
 				Label choix = new Label("Choisissez une structure :");
+				newWindow.setY(50);
+
 
 				Button grenouille = new Button("Grenouille");
 				grenouille.setOnAction(e -> {
+					execution = false;
+					start.setDisable(false);
+					stop.setDisable(true);
 					for(int i = 0; i < tailleGrille; i++) {
 						for(int j = 0; j < tailleGrille; j++) {
-							if (i == milieu && j == milieu) {
+							infoJeu[i][j] = 0;
+							nombreCase[i][j].deces();
+						}
+					}
+					for(int i = 0; i < tailleGrille; i++) {
+						for(int j = 0; j < tailleGrille; j++) {
+							if (milieu == i && milieu == j) {
 								nombreCase[i][j].naissance();
 								nombreCase[i+1][j].naissance();
 								nombreCase[i][j-1].naissance();
@@ -186,9 +197,18 @@ public class FenetreDeJeu extends Main {
 				});
 				Button phare = new Button("Phare");
 				phare.setOnAction(e -> {
+					execution = false;
+					start.setDisable(false);
+					stop.setDisable(true);
 					for(int i = 0; i < tailleGrille; i++) {
 						for(int j = 0; j < tailleGrille; j++) {
-							if (i == milieu && j == milieu) {
+							infoJeu[i][j] = 0;
+							nombreCase[i][j].deces();
+						}
+					}
+					for(int i = 0; i < tailleGrille; i++) {
+						for(int j = 0; j < tailleGrille; j++) {
+							if (milieu == i && milieu == j) {
 								nombreCase[i][j].naissance();
 								nombreCase[i+1][j].naissance();
 								nombreCase[i][j+1].naissance();
@@ -203,9 +223,18 @@ public class FenetreDeJeu extends Main {
 				});
 				Button etoile = new Button("Étoile");
 				etoile.setOnAction(e -> {
+					execution = false;
+					start.setDisable(false);
+					stop.setDisable(true);
 					for(int i = 0; i < tailleGrille; i++) {
 						for(int j = 0; j < tailleGrille; j++) {
-							if (i == milieu && j == milieu) {
+							infoJeu[i][j] = 0;
+							nombreCase[i][j].deces();
+						}
+					}
+					for(int i = 0; i < tailleGrille; i++) {
+						for(int j = 0; j < tailleGrille; j++) {
+							if (milieu == i && milieu == j) {
 								nombreCase[i][j-2].naissance();
 								nombreCase[i][j-3].naissance();	
 								nombreCase[i][j-4].naissance();
@@ -230,18 +259,21 @@ public class FenetreDeJeu extends Main {
 				Label textGalaxie = new Label("");
 				Button galaxie = new Button("Galaxie");
 				if (tailleGrille < 11) {
-					galaxie.setOnAction(new EventHandler<ActionEvent>() {
-						@Override
-						public void handle(ActionEvent event) {
-							textGalaxie.setText("Min : 11x11");
-							textGalaxie.setTextFill(Color.DARKRED);
-						}
-					});
+					galaxie.setDisable(true);		
 				} 
 				galaxie.setOnAction(e -> {
+					execution = false;
+					start.setDisable(false);
+					stop.setDisable(true);
 					for(int i = 0; i < tailleGrille; i++) {
 						for(int j = 0; j < tailleGrille; j++) {
-							if (i == milieu && j == milieu) {
+							infoJeu[i][j] = 0;
+							nombreCase[i][j].deces();
+						}
+					}
+					for(int i = 0; i < tailleGrille; i++) {
+						for(int j = 0; j < tailleGrille; j++) {
+							if (milieu == i && milieu == j) {
 								nombreCase[i][j-3].naissance();
 								nombreCase[i+1][j-3].naissance();
 								nombreCase[i-1][j-3].naissance();
@@ -303,19 +335,21 @@ public class FenetreDeJeu extends Main {
 				Label textHorloge = new Label("");
 				Button horloge = new Button("Horloge");
 				if (tailleGrille < 14) {
-					horloge.setOnAction(new EventHandler<ActionEvent>() {
-						@Override
-						public void handle(ActionEvent event) {
-							textHorloge.setText("Min : 14x14");
-							textHorloge.setTextFill(Color.DARKRED);
-						}
-					});
+					horloge.setDisable(true);
 				} 
 				horloge.setOnAction(e -> {
-
+					execution = false;
+					start.setDisable(false);
+					stop.setDisable(true);
 					for(int i = 0; i < tailleGrille; i++) {
 						for(int j = 0; j < tailleGrille; j++) {
-							if (i == milieu && j == milieu) {
+							infoJeu[i][j] = 0;
+							nombreCase[i][j].deces();
+						}
+					}
+					for(int i = 0; i < tailleGrille; i++) {
+						for(int j = 0; j < tailleGrille; j++) {
+							if (milieu == i && milieu == j) {
 								nombreCase[i][j].naissance();
 								nombreCase[i-1][j].naissance();
 								nombreCase[i-2][j-1].naissance();
@@ -366,9 +400,18 @@ public class FenetreDeJeu extends Main {
 				H.getChildren().addAll(horloge, textHorloge);
 				Button clignotant = new Button("Clignotant");
 				clignotant.setOnAction(e -> {
+					execution = false;
+					start.setDisable(false);
+					stop.setDisable(true);
 					for(int i = 0; i < tailleGrille; i++) {
 						for(int j = 0; j < tailleGrille; j++) {
-							if (i == milieu && j == milieu) {
+							infoJeu[i][j] = 0;
+							nombreCase[i][j].deces();
+						}
+					}
+					for(int i = 0; i < tailleGrille; i++) {
+						for(int j = 0; j < tailleGrille; j++) {
+							if (milieu == i && milieu == j) {
 								nombreCase[i][j].naissance();
 								nombreCase[i+1][j].naissance();
 								nombreCase[i-1][j].naissance();
@@ -381,18 +424,21 @@ public class FenetreDeJeu extends Main {
 				Label textPenta = new Label("");
 				Button pentadecathlon = new Button("Pentadecathlon");
 				if (tailleGrille < 17) {
-					pentadecathlon.setOnAction(new EventHandler<ActionEvent>() {
-						@Override
-						public void handle(ActionEvent event) {
-							textPenta.setText("Min : 17x17");
-							textPenta.setTextFill(Color.DARKRED);
-						}
-					});
+					pentadecathlon.setDisable(true);
 				} 
 				pentadecathlon.setOnAction(e -> {
+					execution = false;
+					start.setDisable(false);
+					stop.setDisable(true);
 					for(int i = 0; i < tailleGrille; i++) {
 						for(int j = 0; j < tailleGrille; j++) {
-							if (i == milieu && j == milieu) {
+							infoJeu[i][j] = 0;
+							nombreCase[i][j].deces();
+						}
+					}
+					for(int i = 0; i < tailleGrille; i++) {
+						for(int j = 0; j < tailleGrille; j++) {
+							if (milieu == i && milieu == j) {
 								nombreCase[i][j+4].naissance();
 								nombreCase[i][j-4].naissance();
 								nombreCase[i+1][j+4].naissance();
@@ -419,9 +465,18 @@ public class FenetreDeJeu extends Main {
 				P.getChildren().addAll(textPenta, pentadecathlon);
 				Button vaisseau = new Button("Vaisseau");
 				vaisseau.setOnAction(e -> {
+					execution = false;
+					start.setDisable(false);
+					stop.setDisable(true);
 					for(int i = 0; i < tailleGrille; i++) {
 						for(int j = 0; j < tailleGrille; j++) {
-							if (i == milieu && j == milieu) {
+							infoJeu[i][j] = 0;
+							nombreCase[i][j].deces();
+						}
+					}
+					for(int i = 0; i < tailleGrille; i++) {
+						for(int j = 0; j < tailleGrille; j++) {
+							if (milieu == i && milieu == j) {
 								nombreCase[i][j+2].naissance();
 								nombreCase[i-1][j+2].naissance();
 								nombreCase[i+1][j+2].naissance();
@@ -437,9 +492,18 @@ public class FenetreDeJeu extends Main {
 				});
 				Button planeur = new Button("Planeur");
 				planeur.setOnAction(e -> {
+					execution = false;
+					start.setDisable(false);
+					stop.setDisable(true);
 					for(int i = 0; i < tailleGrille; i++) {
 						for(int j = 0; j < tailleGrille; j++) {
-							if (i == milieu && j == milieu) {
+							infoJeu[i][j] = 0;
+							nombreCase[i][j].deces();
+						}
+					}
+					for(int i = 0; i < tailleGrille; i++) {
+						for(int j = 0; j < tailleGrille; j++) {
+							if (milieu == i && milieu == j) {
 								nombreCase[i+1][j].naissance();
 								nombreCase[i][j+1].naissance();
 								nombreCase[i][j-1].naissance();
@@ -453,17 +517,119 @@ public class FenetreDeJeu extends Main {
 				Label textCanon = new Label("");
 				Button canonplaneur = new Button("Canon à planeurs");
 				if (tailleGrille < 38) {
-					canonplaneur.setOnAction(new EventHandler<ActionEvent>() {
-						@Override
-						public void handle(ActionEvent event) {
-							textCanon.setText("Min : 38x38");
-							textCanon.setTextFill(Color.DARKRED);
-						}
-					});
+					canonplaneur.setDisable(true);
 				}
+				canonplaneur.setOnAction(e -> {
+					execution = false;
+					start.setDisable(false);
+					stop.setDisable(true);
+					for(int i = 0; i < tailleGrille; i++) {
+						for(int j = 0; j < tailleGrille; j++) {
+							infoJeu[i][j] = 0;
+							nombreCase[i][j].deces();
+						}
+					}
+					for(int i = 0; i < tailleGrille; i++) {
+						for(int j = 0; j < tailleGrille; j++) {
+							if (milieu == i && milieu == j) {
+								nombreCase[i-2][j].naissance();
+								nombreCase[i-2][j+1].naissance();
+								nombreCase[i-2][j+2].naissance();
+								nombreCase[i-1][j+1].naissance();
+								nombreCase[i-3][j-1].naissance();
+								nombreCase[i-3][j+3].naissance();
+								nombreCase[i-3][j+3].naissance();
+								nombreCase[i-4][j+1].naissance();
+
+								nombreCase[i-5][j-2].naissance();
+								nombreCase[i-6][j-2].naissance();
+								nombreCase[i-5][j+4].naissance();
+								nombreCase[i-6][j+4].naissance();
+
+								nombreCase[i-7][j-1].naissance();
+								nombreCase[i-7][j+3].naissance();
+								nombreCase[i-8][j].naissance();
+								nombreCase[i-8][j+1].naissance();
+								nombreCase[i-8][j+2].naissance();
+
+								nombreCase[i-17][j].naissance();
+								nombreCase[i-18][j].naissance();
+								nombreCase[i-17][j+1].naissance();
+								nombreCase[i-18][j+1].naissance();
+
+								nombreCase[i+2][j].naissance();
+								nombreCase[i+2][j-1].naissance();
+								nombreCase[i+2][j-2].naissance();
+								nombreCase[i+3][j].naissance();
+								nombreCase[i+3][j-1].naissance();
+								nombreCase[i+3][j-2].naissance();
+
+								nombreCase[i+4][j+1].naissance();
+								nombreCase[i+4][j-3].naissance();
+								nombreCase[i+6][j-3].naissance();
+								nombreCase[i+6][j-4].naissance();
+								nombreCase[i+6][j+1].naissance();
+								nombreCase[i+6][j+2].naissance();
+
+								nombreCase[i+16][j-1].naissance();
+								nombreCase[i+16][j-2].naissance();
+								nombreCase[i+17][j-1].naissance();
+								nombreCase[i+17][j-2].naissance();
+
+							}
+						}
+					}
+				});
 				C.getChildren().addAll(textCanon, canonplaneur);
-				Button formestable = new Button("Formes stables");
-				
+				Button formestable = new Button("Formes stables");  
+				formestable.setOnAction(e -> {
+					execution = false;
+					start.setDisable(false);
+					stop.setDisable(true);
+					for(int i = 0; i < tailleGrille; i++) {
+						for(int j = 0; j < tailleGrille; j++) {
+							infoJeu[i][j] = 0;
+							nombreCase[i][j].deces();
+						}
+					}
+					for(int i = 0; i < tailleGrille; i++) {
+						for(int j = 0; j < tailleGrille; j++) {
+							if (milieu == i && milieu == j) {
+								int choix2;
+								choix2 = genererRandom(0,4);
+								if (choix2 == 0) {
+									nombreCase[i][j].naissance();
+									nombreCase[i+1][j].naissance();
+									nombreCase[i][j+1].naissance();
+									nombreCase[i+1][j+1].naissance();
+
+								} else if (choix2 == 1) {
+									nombreCase[i][j-1].naissance();
+									nombreCase[i+1][j].naissance();
+									nombreCase[i][j+1].naissance();
+									nombreCase[i-1][j].naissance();
+
+								} else if (choix2 == 2) {
+									nombreCase[i][j-1].naissance();
+									nombreCase[i+1][j].naissance();
+									nombreCase[i][j+1].naissance();
+									nombreCase[i-1][j].naissance();
+									nombreCase[i-1][j-1].naissance();
+
+								} else if (choix2 == 3) {
+									nombreCase[i][j-1].naissance();
+									nombreCase[i+1][j].naissance();
+									nombreCase[i][j+1].naissance();
+									nombreCase[i-1][j].naissance();
+									nombreCase[i-1][j-1].naissance();
+									nombreCase[i+1][j+1].naissance();
+								}
+
+							}
+						}
+					}
+				});
+
 				/* assigniation des css structures */
 				choix.getStyleClass().add("title-str");
 				grenouille.getStyleClass().add("btn-game-str");
@@ -477,20 +643,22 @@ public class FenetreDeJeu extends Main {
 				planeur.getStyleClass().add("btn-game-str");
 				canonplaneur.getStyleClass().add("btn-game-str");
 				formestable.getStyleClass().add("btn-game-str");
-				
+				newWindow.setTitle("Structure");
+
 
 				all.getChildren().addAll(choix, grenouille, phare, etoile, galaxie, horloge,
 						clignotant, pentadecathlon, vaisseau, planeur, canonplaneur,
-						formestable, textGalaxie, textHorloge, textPenta, textCanon, C, H , P, G);
-
+						formestable);
 				all.setAlignment(Pos.CENTER);
-				newWindow.setTitle("Structure");
+
+
+
 				newWindow.setScene(structureScene);
 				newWindow.show();
 			}
 
 		});
-		
+		VBox ensembleVitesse = new VBox(10);
 		Slider vitesse = new Slider();
 		vitesse.setMin(1);
 		vitesse.setMax(459);
@@ -531,8 +699,10 @@ public class FenetreDeJeu extends Main {
 
 		});
 
-
-		ligneBas.setPadding(new Insets(26, 0, 0, 25));
+		Label vitesse2 = new Label("Vitesse");
+		ensembleVitesse.getChildren().addAll(vitesse2, vitesse);
+		ensembleVitesse.setAlignment(Pos.CENTER);
+		ligneBas.setPadding(new Insets(25, 0, 0, 25));
 
 		stop.setDisable(true);
 		start.setOnAction(e -> {
@@ -546,8 +716,11 @@ public class FenetreDeJeu extends Main {
 			start.setDisable(false);
 			stop.setDisable(true);
 		});
-		
-		/* assigniation des CSS */
+
+		ligneBas.getChildren().addAll(accueil, effacer, start, stop, aleatoire, structure, ensembleVitesse);
+
+		racine.getChildren().addAll(jeu, bottomBar, ligneBas);
+		/* assignation des CSS */
 		accueil.getStyleClass().add("btn-game");
 		effacer.getStyleClass().add("btn-game");
 		start.getStyleClass().add("btn-game");
@@ -555,10 +728,7 @@ public class FenetreDeJeu extends Main {
 		aleatoire.getStyleClass().add("btn-game");
 		structure.getStyleClass().add("btn-game");
 		vitesse.getStyleClass().add("bar-speed");
-
-		ligneBas.getChildren().addAll(accueil, effacer, start, stop, aleatoire, structure, vitesse);
-
-		racine.getChildren().addAll(jeu, bottomBar, ligneBas);
+		vitesse2.getStyleClass().add("speed");
 
 		primaryStage.setTitle("Jeu de la vie");
 		primaryStage.setScene(scene2);

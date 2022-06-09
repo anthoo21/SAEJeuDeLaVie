@@ -7,11 +7,6 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-/**
- * @author Froment Jean-Francois
- * @author Enjalbert Anthony
- *
- */
 public class Case extends Parent{
 
 	int coordX;
@@ -24,11 +19,6 @@ public class Case extends Parent{
 	
 	
 
-	/**
-	 * TODO commenter l'état initial
-	 * @param x
-	 * @param y
-	 */
 	public Case(int x, int y) {
 		coordX = x;
 		coordY = y;
@@ -66,44 +56,26 @@ public class Case extends Parent{
 
 	}
 	
-	/**
-	 * TODO commenter le rôle (SRP) de cette méthode 
-	 */
 	public void naissance() {
 		cellule.setVisible(true);
 		occupee = true;
 		FenetreDeJeu.infoJeu[getX()][getY()] = 1;
 	}
 	
-	/**
-	 * TODO commenter le rôle (SRP) de cette méthode 
-	 */
 	public void deces() {
 		cellule.setVisible(false);
 		occupee = false;
 		FenetreDeJeu.infoJeu[getX()][getY()] = 0;
 	}
 
-	/**
-	 * TODO commenter le rôle (SRP) de cette méthode 
-	 * @return occupee
-	 */
 	public boolean isOccupee() {
 		return occupee;
 	}
 	
-	/**
-	 * TODO commenter le rôle (SRP) de cette méthode 
-	 * @return x
-	 */
 	public int getX() {
 		return coordX;
 	}
 	
-	/**
-	 * TODO commenter le rôle (SRP) de cette méthode 
-	 * @return y
-	 */
 	public int getY() {
 		return coordY;
 	}

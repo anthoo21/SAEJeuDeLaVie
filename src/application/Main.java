@@ -26,17 +26,17 @@ import javafx.scene.layout.VBox;
 public class Main extends Application {
 
 	/**
-	 * TODO commenter le role (attribut ou rÃ´le associatif)
+	 * TODO commenter le role (attribut ou rôle associatif)
 	 */
 	public static CheckBox[] tabSurvieTest;
 	
 	/**
-	 * TODO commenter le role (attribut ou rÃ´le associatif)
+	 * TODO commenter le role (attribut ou rôle associatif)
 	 */
 	public static CheckBox[] tabNaissanceTest;
 
 	/**
-	 * TODO commenter le role (attribut ou rÃ´le associatif)
+	 * TODO commenter le role (attribut ou rôle associatif)
 	 */
 	public static int tailleGrille;
 
@@ -117,7 +117,7 @@ public class Main extends Application {
 		secondCheck.getStyleClass().add("check-box");
 		texteNumber.getStyleClass().add("number");
              
-		rulesLive.setWrapText(true); //  dÃ©bloque le retour Ã  la ligne
+		rulesLive.setWrapText(true); //  débloque le retour à la ligne
 		rulesDie.setWrapText(true);
 		
 		/* placement */
@@ -129,8 +129,6 @@ public class Main extends Application {
 //		right.setTranslateY(100);
 		right.setTranslateX(110);
 		right.setSpacing(50);
-		
-		 
 
 		bar.getChildren().addAll(sizeNumber,texteNumber);
 		right.getChildren().addAll(rules,size,bar,rulesLive,firstCheck,rulesDie,secondCheck);
@@ -150,7 +148,6 @@ public class Main extends Application {
 		Scene scene = new Scene(root,900,900);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		primaryStage.setScene(scene);
-		primaryStage.setTitle("Accueil");
 		primaryStage.show(); 
 
 		play.setOnAction(e -> {
@@ -170,7 +167,7 @@ public class Main extends Application {
 	}
 	
 	/**
-	 * TODO commenter le rÃ´le (SRP) de cette mÃ©thode 
+	 * TODO commenter le rôle (SRP) de cette méthode 
 	 * @return taille de la grille
 	 */
 	public static int getTailleGrille() {
