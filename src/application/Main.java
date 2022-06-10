@@ -1,4 +1,9 @@
+/*
+ * Main.java
+ * BUT INFO1 2021-2022                                               10/06/2022                        
+ */
 package application;
+
 
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
@@ -13,35 +18,34 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 
 /**
+ * Lance la page d'accueil principal, possibilitÃ© de modifier les rÃ¨gles
+ * et de changer la taille de la grille
  * @author Froment Jean-Francois
  * @author Enjalbert Anthony
- *
  */
 public class Main extends Application {
 
 	/**
-	 * TODO commenter le role (attribut ou rôle associatif)
+	 * CheckBox permettant de gÃ©rer la survie des cellules
 	 */
-	public static CheckBox[] tabSurvieTest;
+	public static CheckBox[] tabSurvieTab;
 	
 	/**
-	 * TODO commenter le role (attribut ou rôle associatif)
+	 * CheckBox permettant de gÃ©rer la naissance des cellules
 	 */
-	public static CheckBox[] tabNaissanceTest;
+	public static CheckBox[] tabNaissanceTab;
 
 	/**
-	 * TODO commenter le role (attribut ou rôle associatif)
+	 * Valeur permettant de changer la taille de la grille
 	 */
 	public static int tailleGrille;
 
-
-	@Override
+@Override
 	public void start(Stage primaryStage) {
 
 
@@ -59,10 +63,10 @@ public class Main extends Application {
 
 		/* composants autres que box */
 		Label title = new Label ("JEU DE LA VIE");
-		Label rules = new Label ("Règles");
+		Label rules = new Label ("RÃ¨gles");
 		Label size = new Label ("Taille de la grille");
-		Label rulesDie = new Label ("Une cellule naît si elle est   entourée de : "); // espace pour IHM
-		Label rulesLive = new Label ("Une cellule reste en vie si elle est entourée de : ");
+		Label rulesDie = new Label ("Une cellule naÃ®t si elle est   entourÃ©e de : "); // espace pour IHM
+		Label rulesLive = new Label ("Une cellule reste en vie si elle est entourÃ©e de : ");
 		Separator vertical = new Separator(); // barre vertical
 		Button play = new Button("JOUER");
 		Button more = new Button("Plus d'informations");
@@ -83,8 +87,7 @@ public class Main extends Application {
 		});
 		sizeNumber.setValue(20);
 
-		/* check box */
-
+		/* Boucle qui crÃ©e 9 CheckBox */
 		CheckBox[] tabSurvie = new CheckBox[9];
 		for (int i = 0; i < 9; i++) {
 			tabSurvie[i] = new CheckBox(String.valueOf(i));
@@ -93,15 +96,16 @@ public class Main extends Application {
 		tabSurvie[2].setSelected(true);
 		tabSurvie[3].setSelected(true);
 
-		tabSurvieTest = tabSurvie;
+		tabSurvieTab = tabSurvie;
 
+		/* Boucle qui crÃ©e 9 CheckBox */
 		CheckBox[] tabNaissance = new CheckBox[9];
 		for (int i = 0; i < 9; i++) {
 			tabNaissance[i] = new CheckBox(String.valueOf(i));
 			secondCheck.getChildren().add(tabNaissance[i]);
 		}
 		tabNaissance[3].setSelected(true);
-		tabNaissanceTest = tabNaissance;
+		tabNaissanceTab = tabNaissance;
 
 		/* assigniation des CSS */
 		title.getStyleClass().add("title");
@@ -117,7 +121,7 @@ public class Main extends Application {
 		secondCheck.getStyleClass().add("check-box");
 		texteNumber.getStyleClass().add("number");
              
-		rulesLive.setWrapText(true); //  débloque le retour à la ligne
+		rulesLive.setWrapText(true); //  dÃ©bloque le retour Ã  la ligne
 		rulesDie.setWrapText(true);
 		
 		/* placement */
@@ -129,6 +133,8 @@ public class Main extends Application {
 //		right.setTranslateY(100);
 		right.setTranslateX(110);
 		right.setSpacing(50);
+		
+		 
 
 		bar.getChildren().addAll(sizeNumber,texteNumber);
 		right.getChildren().addAll(rules,size,bar,rulesLive,firstCheck,rulesDie,secondCheck);
@@ -152,14 +158,13 @@ public class Main extends Application {
 
 		play.setOnAction(e -> {
 			FenetreDeJeu.display();
-			primaryStage.close();
+
 		});
 	}
 
 
 
 	/**
-	 * 
 	 * @param args 
 	 */
 	public static void main(String[] args) {
@@ -167,7 +172,7 @@ public class Main extends Application {
 	}
 	
 	/**
-	 * TODO commenter le rôle (SRP) de cette méthode 
+	 * Permet d'obtenir la taille de la grille
 	 * @return taille de la grille
 	 */
 	public static int getTailleGrille() {

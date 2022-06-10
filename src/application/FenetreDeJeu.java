@@ -1,8 +1,11 @@
+/*
+ * FenetreDeJeu.java
+ * BUT INFO1 2021-2022                                               10/06/2022                        
+ */
 package application;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -11,65 +14,65 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-
 import java.util.Random;
 
-import application.Main;
+/**
+ * Affiche la fenêtre permettant de jouer
+ * Il est possible de modifier la vitesse, et de placer des structures
+ * @author Froment Jean-Francois
+ * @author Enjalbert Anthony
+ */
 
 
-public class FenetreDeJeu extends Main {
+public abstract class FenetreDeJeu extends Main {
 
+	/**
+	 * Permet de savoir si le jeu est lancé ou non
+	 */
 	private static boolean execution;
 
+	/**
+	 * Permet de pouvoir gérer la vitesse du jeu
+	 */
 	public static Timeline refresh;
-	public static int[][] infoJeu;
 
+	public static int[][] grille;
+
+	/**
+	 * Récupère la taille de la grille
+	 */
 	static int tailleGrille = Main.getTailleGrille();
 
 	public static void display() {
 
 
-		Random random = new Random();
 		Stage primaryStage = new Stage();
 		VBox racine = new VBox();
 		int tailleFenetre = 900;
-		int nbrCellule;
-		String nbrCelluleString;
 		Scene scene2 = new Scene(racine, tailleFenetre, tailleFenetre + 80);
 		scene2.getStylesheets().add(FenetreDeJeu.class.getResource("application.css").toExternalForm());
-
 		scene2.setFill(Color.LIGHTGRAY);
 
 		Line bottomBar = new Line(0, 0, 900, 0);
 
-
-
 		bottomBar.setStrokeWidth(2);
 		bottomBar.setStroke(Color.BLACK);
-
 		bottomBar.setTranslateY(900);
-
-
 
 		GridPane jeu = new GridPane();
 		jeu.setVgap(1);
 		jeu.setHgap(1);
 		jeu.setPadding(new Insets(2,0,0,2));
 
-
-
 		Case[][] nombreCase = new Case[tailleGrille][tailleGrille];
-		infoJeu = new int[tailleGrille][tailleGrille];
+		grille = new int[tailleGrille][tailleGrille];
 
 		for(int i = 0; i<tailleGrille; i++) {
 			for(int j = 0; j<tailleGrille; j++) {
@@ -78,19 +81,18 @@ public class FenetreDeJeu extends Main {
 			}
 		}
 
-		Algorithme calculs = new Algorithme(infoJeu, nombreCase, Main.tabSurvieTest, Main.tabNaissanceTest);
+		Algorithme calculs = new Algorithme(grille, nombreCase, Main.tabSurvieTab, Main.tabNaissanceTab);
 		calculs.start();
 
 		refresh = new Timeline(new KeyFrame(Duration.millis(100), new EventHandler<ActionEvent>(){
 			public void handle(ActionEvent arg0) {
 
-
 				for(int i = 0; i < tailleGrille; i++) {
 					for(int j = 0; j < tailleGrille; j++) {
-						if(infoJeu[i][j] == 1 && !nombreCase[i][j].isOccupee()) {
+						if(grille[i][j] == 1 && !nombreCase[i][j].isOccupee()) {
 							nombreCase[i][j].naissance();
 						} 
-						if(infoJeu[i][j] == 0 && nombreCase[i][j].isOccupee()) {
+						if(grille[i][j] == 0 && nombreCase[i][j].isOccupee()) {
 							nombreCase[i][j].deces();
 						}
 					}
@@ -106,16 +108,6 @@ public class FenetreDeJeu extends Main {
 		refresh.setCycleCount(Timeline.INDEFINITE);
 		refresh.play();
 
-
-
-		//			primaryStage.heightProperty().addListener(e -> {
-		//				primaryStage.setWidth(primaryStage.getHeight() + 100);
-		//			});
-		//			
-		//			primaryStage.widthProperty().addListener(e -> {
-		//				primaryStage.setHeight(primaryStage.getWidth() + 100);
-		//			});
-
 		HBox ligneBas = new HBox(35);
 		Button accueil = new Button("Acceuil");
 		Button effacer = new Button("Effacer");
@@ -124,7 +116,7 @@ public class FenetreDeJeu extends Main {
 		effacer.setOnAction(event ->{
 			for(int i = 0; i < tailleGrille; i++) {
 				for(int j = 0; j < tailleGrille; j++) {
-					infoJeu[i][j] = 0;
+					grille[i][j] = 0;
 					nombreCase[i][j].deces();
 				}
 			}
@@ -135,12 +127,11 @@ public class FenetreDeJeu extends Main {
 		});
 		Button aleatoire = new Button("Aléatoire");
 
-
 		aleatoire.setOnAction(event -> {
 			int choix = 0;
 			for(int i = 0; i < tailleGrille; i++) {
 				for(int j = 0; j < tailleGrille; j++) {
-					infoJeu[i][j] = 0;
+					grille[i][j] = 0;
 					nombreCase[i][j].deces();
 				}
 			}
@@ -148,7 +139,7 @@ public class FenetreDeJeu extends Main {
 				for(int j = 0; j < tailleGrille; j++) {
 					choix = genererRandom(0,2);
 					if (choix == 0) {
-						infoJeu[i][j] = 0;
+						grille[i][j] = 0;
 						nombreCase[i][j].naissance();
 					}
 				}
@@ -178,7 +169,7 @@ public class FenetreDeJeu extends Main {
 					stop.setDisable(true);
 					for(int i = 0; i < tailleGrille; i++) {
 						for(int j = 0; j < tailleGrille; j++) {
-							infoJeu[i][j] = 0;
+							grille[i][j] = 0;
 							nombreCase[i][j].deces();
 						}
 					}
@@ -202,7 +193,7 @@ public class FenetreDeJeu extends Main {
 					stop.setDisable(true);
 					for(int i = 0; i < tailleGrille; i++) {
 						for(int j = 0; j < tailleGrille; j++) {
-							infoJeu[i][j] = 0;
+							grille[i][j] = 0;
 							nombreCase[i][j].deces();
 						}
 					}
@@ -228,7 +219,7 @@ public class FenetreDeJeu extends Main {
 					stop.setDisable(true);
 					for(int i = 0; i < tailleGrille; i++) {
 						for(int j = 0; j < tailleGrille; j++) {
-							infoJeu[i][j] = 0;
+							grille[i][j] = 0;
 							nombreCase[i][j].deces();
 						}
 					}
@@ -267,7 +258,7 @@ public class FenetreDeJeu extends Main {
 					stop.setDisable(true);
 					for(int i = 0; i < tailleGrille; i++) {
 						for(int j = 0; j < tailleGrille; j++) {
-							infoJeu[i][j] = 0;
+							grille[i][j] = 0;
 							nombreCase[i][j].deces();
 						}
 					}
@@ -343,7 +334,7 @@ public class FenetreDeJeu extends Main {
 					stop.setDisable(true);
 					for(int i = 0; i < tailleGrille; i++) {
 						for(int j = 0; j < tailleGrille; j++) {
-							infoJeu[i][j] = 0;
+							grille[i][j] = 0;
 							nombreCase[i][j].deces();
 						}
 					}
@@ -405,7 +396,7 @@ public class FenetreDeJeu extends Main {
 					stop.setDisable(true);
 					for(int i = 0; i < tailleGrille; i++) {
 						for(int j = 0; j < tailleGrille; j++) {
-							infoJeu[i][j] = 0;
+							grille[i][j] = 0;
 							nombreCase[i][j].deces();
 						}
 					}
@@ -432,7 +423,7 @@ public class FenetreDeJeu extends Main {
 					stop.setDisable(true);
 					for(int i = 0; i < tailleGrille; i++) {
 						for(int j = 0; j < tailleGrille; j++) {
-							infoJeu[i][j] = 0;
+							grille[i][j] = 0;
 							nombreCase[i][j].deces();
 						}
 					}
@@ -470,7 +461,7 @@ public class FenetreDeJeu extends Main {
 					stop.setDisable(true);
 					for(int i = 0; i < tailleGrille; i++) {
 						for(int j = 0; j < tailleGrille; j++) {
-							infoJeu[i][j] = 0;
+							grille[i][j] = 0;
 							nombreCase[i][j].deces();
 						}
 					}
@@ -497,7 +488,7 @@ public class FenetreDeJeu extends Main {
 					stop.setDisable(true);
 					for(int i = 0; i < tailleGrille; i++) {
 						for(int j = 0; j < tailleGrille; j++) {
-							infoJeu[i][j] = 0;
+							grille[i][j] = 0;
 							nombreCase[i][j].deces();
 						}
 					}
@@ -525,7 +516,7 @@ public class FenetreDeJeu extends Main {
 					stop.setDisable(true);
 					for(int i = 0; i < tailleGrille; i++) {
 						for(int j = 0; j < tailleGrille; j++) {
-							infoJeu[i][j] = 0;
+							grille[i][j] = 0;
 							nombreCase[i][j].deces();
 						}
 					}
@@ -588,7 +579,7 @@ public class FenetreDeJeu extends Main {
 					stop.setDisable(true);
 					for(int i = 0; i < tailleGrille; i++) {
 						for(int j = 0; j < tailleGrille; j++) {
-							infoJeu[i][j] = 0;
+							grille[i][j] = 0;
 							nombreCase[i][j].deces();
 						}
 					}
@@ -628,6 +619,7 @@ public class FenetreDeJeu extends Main {
 							}
 						}
 					}
+
 				});
 
 				/* assigniation des css structures */
@@ -658,6 +650,9 @@ public class FenetreDeJeu extends Main {
 			}
 
 		});
+		accueil.setOnAction(event2 -> {
+			primaryStage.close();
+		});
 		VBox ensembleVitesse = new VBox(10);
 		Slider vitesse = new Slider();
 		vitesse.setMin(1);
@@ -670,27 +665,19 @@ public class FenetreDeJeu extends Main {
 			KeyFrame key = new KeyFrame(Duration.millis(500-vitesse.getValue()), new EventHandler<ActionEvent>(){
 				public void handle(ActionEvent arg0) {
 
-
-
-					//rafraichissement:
-					//						System.out.println("refresh");
 					for(int i = 0 ; i < tailleGrille ; i++){
 						for(int j = 0 ; j < tailleGrille ; j++){
-							if(infoJeu[i][j] == 1 && !nombreCase[i][j].isOccupee()){
+							if(grille[i][j] == 1 && !nombreCase[i][j].isOccupee()){
 								nombreCase[i][j].naissance();
 							}
-							if(infoJeu[i][j] == 0 && nombreCase[i][j].isOccupee()){
+							if(grille[i][j] == 0 && nombreCase[i][j].isOccupee()){
 								nombreCase[i][j].deces();
 							}
 						}
 					}
-
-
 					synchronized(calculs){
 						calculs.notify();
 					}
-
-
 				}
 			});
 
@@ -734,21 +721,28 @@ public class FenetreDeJeu extends Main {
 		primaryStage.setScene(scene2);
 		primaryStage.show();
 
-
-
-
-
-
 	}
 
 	public static void main(String[] args) {
 		launch(args);
 	}
-
+	
+	/**
+	 * Permet de savoir l'état du jeu
+	 * @return execution true si le jeu est lancé
+	 *                   false si le jeu n'est pas lancé
+	 */
 	public static boolean getExecution() {
 		return execution;
 	}
 
+	/**
+	 * Permet de générer un nombre compris entre une borne inférieur
+	 * donné et une borne supérieur donné
+	 * @param borneInf borne inférieur
+	 * @param borneSup borne supérieur
+	 * @return nombre aléatoire compris entre borneInf et borneSup
+	 */
 	static int genererRandom(int borneInf, int borneSup){
 		Random random = new Random();
 		int nb;
